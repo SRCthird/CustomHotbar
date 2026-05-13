@@ -22,34 +22,22 @@ import net.minecraftforge.fml.common.Mod;
         value = Dist.CLIENT,
         bus = Mod.EventBusSubscriber.Bus.MOD
 )
-public final class CustomHotbarOverlay {
-    private static final ResourceLocation DEFAULT_OVERLAY =
-          modTexture("textures/gui/overlay.png");
+public final class Overlay {
 
-    private static final ResourceLocation DEFAULT_UNDERLAY =
-            modTexture("textures/gui/underlay.png");
-
-    private CustomHotbarOverlay() {}
-
-    private static ResourceLocation modTexture(String path) {
-      return Objects.requireNonNull(
-          ResourceLocation.tryBuild(CustomHotbar.MOD_ID, path),
-          "Invalid resource location: " + CustomHotbar.MOD_ID + ":" + path
-          );
-    }
+    private Overlay() {}
 
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
         event.registerBelow(
                 VanillaGuiOverlay.HOTBAR.id(),
                 "custom_hotbar_underlay",
-                CustomHotbarOverlay::renderUnderlay
+                Overlay::renderUnderlay
         );
 
         event.registerAbove(
                 VanillaGuiOverlay.HOTBAR.id(),
                 "custom_hotbar_overlay",
-                CustomHotbarOverlay::renderOverlay
+                Overlay::renderOverlay
         );
     }
 
@@ -70,10 +58,7 @@ public final class CustomHotbarOverlay {
         int width = Config.WIDTH.get();
         int height = Config.HEIGHT.get();
 
-        ResourceLocation underlay = resolveTexture(
-                Config.UNDERLAY_PATH.get(),
-                DEFAULT_UNDERLAY
-        );
+        ResourceLocation underlay = Textures.underlay();
 
         graphics.pose().pushPose();
         graphics.blit(underlay, x, y, 0, 0, width, height, width, height);
@@ -97,10 +82,7 @@ public final class CustomHotbarOverlay {
         int width = Config.WIDTH.get();
         int height = Config.HEIGHT.get();
 
-        ResourceLocation overlay = resolveTexture(
-                Config.OVERLAY_PATH.get(),
-                DEFAULT_OVERLAY
-        );
+        ResourceLocation overlay = Textures.overlay();
 
         graphics.pose().pushPose();
         graphics.blit(overlay, x, y, 0, 0, width, height, width, height);
