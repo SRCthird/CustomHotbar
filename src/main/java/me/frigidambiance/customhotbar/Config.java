@@ -11,6 +11,9 @@ public class Config {
     public static final ForgeConfigSpec.IntValue WIDTH;
     public static final ForgeConfigSpec.IntValue HEIGHT;
 
+    public static final ForgeConfigSpec.ConfigValue<String> UNDERLAY_PATH;
+    public static final ForgeConfigSpec.ConfigValue<String> OVERLAY_PATH;
+
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
@@ -22,19 +25,39 @@ public class Config {
 
         X_OFFSET = builder
                 .comment("Horizontal offset from centered hotbar position.")
-                .defineInRange("xOffset", 0, -500, 500);
+                .defineInRange("x_offset", 0, -500, 500);
 
         Y_OFFSET = builder
                 .comment("Vertical offset from vanilla hotbar position.")
-                .defineInRange("yOffset", 0, -500, 500);
+                .defineInRange("y_offset", 0, -500, 500);
 
         WIDTH = builder
                 .comment("Overlay texture width.")
-                .defineInRange("width", 182, 1, 1024);
+                .defineInRange("width", 256, 1, 1024);
 
         HEIGHT = builder
                 .comment("Overlay texture height.")
-                .defineInRange("height", 22, 1, 1024);
+                .defineInRange("height", 55, 1, 1024);
+
+        UNDERLAY_PATH = builder
+                .comment(
+                        "Resource location for the underlay texture.",
+                        "Leave blank to use the bundled texture:",
+                        "customhotbar:textures/gui/underlay.png",
+                        "Example KubeJS asset:",
+                        "ce:textures/image/hotbar/underlay.png"
+                )
+                .define("underlay_path", "");
+
+        OVERLAY_PATH = builder
+                .comment(
+                        "Resource location for the overlay texture.",
+                        "Leave blank to use the bundled texture:",
+                        "customhotbar:textures/gui/overlay.png",
+                        "Example KubeJS asset:",
+                        "ce:textures/image/hotbar/overlay.png"
+                )
+                .define("overlay_path", "");
 
         builder.pop();
 
