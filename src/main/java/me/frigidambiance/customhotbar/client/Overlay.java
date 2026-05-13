@@ -28,8 +28,7 @@ public final class Overlay {
 
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerBelow(
-                VanillaGuiOverlay.HOTBAR.id(),
+        event.registerBelowAll(
                 "custom_hotbar_underlay",
                 Overlay::renderUnderlay
         );
